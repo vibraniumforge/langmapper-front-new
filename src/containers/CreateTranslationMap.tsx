@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { TranslationMapRow } from "../types/TranslationRow";
+import { TranslationRow } from "../types/TranslationRow";
 import { Word } from "../types/Word";
 import CreateTranslationMapResultsContainer from "./CreateTranslationMapResultsContainer";
 
 export default function CreateTranslationsMap() {
   const [translationResults, setTranslationResults] = useState<
-    TranslationMapRow[]
+    TranslationRow[]
   >([]);
   const [imageResults, setImageResults] = useState<string>();
   const [words, setWords] = useState<Word[]>([]);
@@ -119,14 +119,15 @@ export default function CreateTranslationsMap() {
           />
         </form>
       ) : null}
+      <h3>Area: {chosenArea}</h3>
+      <h3>
+        Word: {chosenWord} {wordDefinition ? "-" + wordDefinition : null}
+      </h3>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
           <img src={imageResults} alt="europe language map" />
           <CreateTranslationMapResultsContainer
             translationResults={translationResults}
-            wordDefinition={wordDefinition}
-            searchedWord={chosenWord}
-            searchedArea={chosenArea}
             // onHandleEdit={}
           />
         </>

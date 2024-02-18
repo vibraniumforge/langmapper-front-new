@@ -12,7 +12,7 @@ import SearchTranslations from "./components/SearchTranslations";
 import ViewAllWords from "./components/ViewAllWords";
 import ViewAllLanguages from "./components/ViewAllLanguages";
 import ViewAllTranslations from "./components/ViewAllTranslations";
-import CreateTranslationsMap from "./containers/CreateTranslationsMap.tsx";
+import CreateTranslationsMap from "./containers/CreateTranslationMap.tsx";
 import CreateGenderMap from "./containers/CreateGenderMap.tsx";
 import CreateEtymologyMap from "./containers/CreateEtymologyMap.tsx";
 

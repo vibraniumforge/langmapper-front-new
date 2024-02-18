@@ -119,14 +119,15 @@ export default function CreateGenderMap() {
           />
         </form>
       ) : null}
+      <h3>Area: {chosenArea}</h3>
+      <h3>
+        Word: {chosenWord} {wordDefinition ? "-" + wordDefinition : null}
+      </h3>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
           <img src={imageResults} alt="europe language map" />
           <CreateGenderMapResultsContainer
             translationResults={translationResults}
-            wordDefinition={wordDefinition}
-            searchedWord={chosenWord}
-            searchedArea={chosenArea}
             // onHandleEdit={}
           />
         </>

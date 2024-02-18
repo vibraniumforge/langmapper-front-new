@@ -30,7 +30,7 @@ export default function CreateTranslationRow({
           : ""}
       </td>
       <td className="table-etymology">
-        {translation.etymology ? translation.etymology : "None Found"}
+        {translation.etymology ? translation.etymology : "N/A"}
       </td>
     </tr>
   );

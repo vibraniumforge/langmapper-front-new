@@ -1,5 +1,5 @@
 const genderHelper = (macrofamily: string, language: string): boolean => {
-  const genderlessLangs = [
+  const genderlessIELangs = [
     "Afrikaans",
     "Armenian",
     "Bengali",
@@ -12,20 +12,22 @@ const genderHelper = (macrofamily: string, language: string): boolean => {
   if (macrofamily !== "Indo-European" && macrofamily !== "Afro-Asiatic") {
     return false;
   }
-  if (genderlessLangs.includes(language)) {
+  if (genderlessIELangs.includes(language)) {
     return false;
   }
   return true;
 };
 
 const genderColorHelper = (gender: string): string => {
-  switch (gender) {
+  switch (gender?.substring(0, 1)) {
     case "m":
       return "male-result";
     case "f":
       return "female-result";
     case "n":
       return "neuter-result";
+    case "c":
+      return "common-result";
     default:
       return "";
   }

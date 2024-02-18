@@ -1,11 +1,15 @@
 .male-result {
-  color: blue;
+  background-color: #87cefa;
 }
 
 .female-result {
-  color: red;
+  background-color: #ffc0cb;
 }
 
 .neuter-result {
-  color: gray;
+  background-color: #d3d3d3;
+}
+
+.common-result {
+  background-color: #ee82ee;
 }

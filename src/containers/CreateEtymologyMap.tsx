@@ -100,6 +100,7 @@ export default function CreateEtymologyMap() {
             onChange={(e) => handleOnChangeArea(e)}
           >
             <option value="">Select One Area</option>
+            <option value="Low German">Low German</option>
             {allAreas}
           </select>
           <select
@@ -119,14 +120,15 @@ export default function CreateEtymologyMap() {
           />
         </form>
       ) : null}
+      <h3>Area: {chosenArea}</h3>
+      <h3>
+        Word: {chosenWord} {wordDefinition ? "-" + wordDefinition : null}
+      </h3>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
           <img src={imageResults} alt="europe language map" />
           <CreateEtymologyMapResultsContainer
             translationResults={translationResults}
-            wordDefinition={wordDefinition}
-            searchedWord={chosenWord}
-            searchedArea={chosenArea}
             // onHandleEdit={}
           />
         </>
