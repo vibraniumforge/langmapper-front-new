@@ -96,7 +96,7 @@ export default function CreateEtymologyMap() {
           <select
             id="selectArea"
             name="selectedArea"
-            value={"Europe"}
+            value={chosenArea}
             onChange={(e) => handleOnChangeArea(e)}
           >
             <option value="">Select One Area</option>
@@ -122,7 +122,7 @@ export default function CreateEtymologyMap() {
       ) : null}
       <h3>Area: {chosenArea}</h3>
       <h3>
-        Word: {chosenWord} {wordDefinition ? "-" + wordDefinition : null}
+        Word: {chosenWord} {wordDefinition ? " - " + wordDefinition : null}
       </h3>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
