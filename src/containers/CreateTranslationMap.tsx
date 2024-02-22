@@ -119,13 +119,13 @@ export default function CreateTranslationsMap() {
           />
         </form>
       ) : null}
-      <h3>Area: {chosenArea}</h3>
       <h3>
-        Word: {chosenWord} {wordDefinition ? " - " + wordDefinition : null}
+        Area: {chosenArea} Word: {chosenWord}{" "}
+        {wordDefinition ? " - " + wordDefinition : null}
       </h3>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
-          <img src={imageResults} alt="europe language map" />
+          <img src={imageResults} alt={chosenArea + " language map"} />
           <CreateTranslationMapResultsContainer
             translationResults={translationResults}
             // onHandleEdit={}

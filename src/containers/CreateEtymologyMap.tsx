@@ -10,7 +10,7 @@ export default function CreateEtymologyMap() {
   const [imageResults, setImageResults] = useState<string>();
   const [words, setWords] = useState<Word[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
-  const [chosenWord, setChosenWord] = useState<string>("silver");
+  const [chosenWord, setChosenWord] = useState<string>("apple");
   const [chosenArea, setChosenArea] = useState<string>("Europe");
   const [wordDefinition, setWordDefinition] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -120,9 +120,9 @@ export default function CreateEtymologyMap() {
           />
         </form>
       ) : null}
-      <h3>Area: {chosenArea}</h3>
       <h3>
-        Word: {chosenWord} {wordDefinition ? " - " + wordDefinition : null}
+        Area: {chosenArea} Word: {chosenWord}{" "}
+        {wordDefinition ? " - " + wordDefinition : null}
       </h3>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
