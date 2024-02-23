@@ -33,6 +33,7 @@ export default function CreateGenderMap() {
 
   const handleOnChangeWord = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setChosenWord(e.target.value);
+    setWordDefinition("");
   };
 
   const handleOnChangeArea = (e: React.ChangeEvent<HTMLSelectElement>) => {
