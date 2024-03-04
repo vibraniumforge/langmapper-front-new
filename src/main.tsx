@@ -5,16 +5,22 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import Index from "./routes/index";
 // import Root from "./routes/root";
 import "./index.css";
+import "./styles/buttons.css";
+import "./styles/edit-translation-form.css";
+import "./styles/autofill.css";
 import ErrorPage from "./error-page.tsx";
 import Home from "./components/Home";
 import NavbarWrapper from "./components/NavbarWrapper";
 import SearchTranslations from "./components/SearchTranslations";
-import ViewAllWords from "./components/ViewAllWords";
-import ViewAllLanguages from "./components/ViewAllLanguages";
+import ViewAllWords from "./containers/ViewAllWords.tsx";
+import ViewAllLanguages from "./containers/ViewAllLanguages";
 import ViewAllTranslations from "./components/ViewAllTranslations";
 import CreateTranslationsMap from "./containers/CreateTranslationMap.tsx";
 import CreateGenderMap from "./containers/CreateGenderMap.tsx";
 import CreateEtymologyMap from "./containers/CreateEtymologyMap.tsx";
+import TranslationForm from "./containers/TranslationForm.tsx";
+import LoginForm from "./forms/LoginForm.tsx";
+import SearchTranslationsByLanguage from "./containers/SearchTranslationsByLanguage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +48,18 @@ const router = createBrowserRouter([
       {
         path: "/create_etymology_map",
         element: <CreateEtymologyMap />,
+      },
+      {
+        path: "/edit_translation_form",
+        element: <TranslationForm />,
+      },
+      {
+        path: "/login_form",
+        element: <LoginForm />,
+      },
+      {
+        path: "/all_translations_by_language",
+        element: <SearchTranslationsByLanguage />,
       },
     ],
   },
