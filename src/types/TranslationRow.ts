@@ -1,11 +1,13 @@
-export interface TranslationRow{
-    id: number;
-    etymology: string;
-    gender: string;
-    link: string;
-    romanization: string;
-    translation: string;
-    name: string;
-    macrofamily: string;
-    family: string;
+export interface TranslationRow {
+  etymology: string;
+  gender: string;
+  id: number;
+  language_id: number;
+  link: string;
+  macrofamily: string;
+  name: string;
+  romanization: string;
+  translation: string;
+  word_name: string;
+  word_id: number;
 }
