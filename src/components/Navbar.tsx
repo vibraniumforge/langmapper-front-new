@@ -47,10 +47,12 @@ export default function Navbar() {
         <NavLink to="/create_translation_map">
           Create Translation Map by Area
         </NavLink>
+        <NavLink to="/create_gender_map">Create Gender Map by Area</NavLink>
         <NavLink to="/create_etymology_map">
           Create Etymology Map by Area (Beta)
         </NavLink>
-        <NavLink to="/create_gender_map">Create Gender Map by Area</NavLink>
+        <NavLink to="/edit_translation_form">Edit Translation</NavLink>
+        <NavLink to="/login_form">LogIn</NavLink>
       </nav>
     </div>
   );
