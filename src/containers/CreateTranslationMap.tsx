@@ -113,6 +113,7 @@ export default function CreateTranslationsMap() {
             {allWords}
           </select>
           <input
+            id="submit-button"
             type="submit"
             value="Search"
             className={chosenWord && chosenArea ? "submit-btn" : "disabled"}
@@ -126,7 +127,11 @@ export default function CreateTranslationsMap() {
       </h3>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
-          <img src={imageResults} alt={chosenArea + " language map"} />
+          <img
+            id="etymology-map"
+            src={imageResults}
+            alt={chosenArea + " language map"}
+          />
           <CreateTranslationMapResultsContainer
             translationResults={translationResults}
             // onHandleEdit={}
