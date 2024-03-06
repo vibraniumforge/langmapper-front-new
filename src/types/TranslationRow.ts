@@ -5,7 +5,7 @@ export interface TranslationRow {
   language_id: number;
   link: string;
   macrofamily: string;
-  name: string;
+  language_name: string;
   romanization: string;
   translation: string;
   word_name: string;
