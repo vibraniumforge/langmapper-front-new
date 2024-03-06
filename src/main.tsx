@@ -18,7 +18,7 @@ import ViewAllTranslations from "./components/ViewAllTranslations";
 import CreateTranslationsMap from "./containers/CreateTranslationMap.tsx";
 import CreateGenderMap from "./containers/CreateGenderMap.tsx";
 import CreateEtymologyMap from "./containers/CreateEtymologyMap.tsx";
-import TranslationForm from "./containers/TranslationForm.tsx";
+import EditTranslationForm from "./forms/EditTranslationForm.tsx";
 import LoginForm from "./forms/LoginForm.tsx";
 import SearchTranslationsByLanguage from "./containers/SearchTranslationsByLanguage";
 
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit_translation_form",
-        element: <TranslationForm />,
+        element: <EditTranslationForm translation={null} />,
       },
       {
         path: "/login_form",
