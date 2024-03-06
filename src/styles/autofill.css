@@ -1,0 +1,94 @@
+.search-autofill {
+  width: 30rem;
+  margin: 2rem auto 2rem auto;
+  text-align: right;
+  position: relative;
+}
+
+.search-box {
+  border: 4px solid transparent;
+  border-radius: 2px;
+  font-size: 2rem;
+  width: 100%;
+  padding: 1rem;
+  transition: width 0.3s;
+  /* border: 1px solid black; */
+  box-sizing: border-box;
+}
+
+.search-box:focus {
+  width: 100%;
+  outline: none;
+  border: 4px solid black;
+  box-sizing: border-box;
+}
+
+.search-btn {
+  height: 100%;
+  width: 4em;
+  margin-top: -2em;
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  opacity: 0.2;
+  background-color: transparent;
+  border: 0;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-image: url(".././images/search.png");
+  overflow-y: hidden;
+}
+
+.search-btn:hover {
+  outline: none;
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+.search-btn:focus {
+  outline: none;
+  opacity: 0.6;
+}
+
+ul.options {
+  display: block;
+  list-style: none;
+  width: 30rem;
+  transition: width 0.3s;
+  margin: auto;
+  position: relative;
+  /* padding-left: 0px; */
+  /* overflow-y: hidden;
+    overflow-x: hidden; */
+}
+
+ul.options li {
+  display: block;
+  background: white;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 100%;
+  border-radius: 2px;
+}
+
+ul.options li:hover {
+  font-weight: bold;
+  color: blue;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+ul.options li.option-active {
+  background: whitesmoke;
+  font-size: 1.5rem;
+  color: #00b4cc;
+}
+
+.no-options {
+  color: white;
+}
+
+.search-img {
+  font-size: 1em;
+}
