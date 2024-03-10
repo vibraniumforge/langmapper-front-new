@@ -1,36 +1,38 @@
 import { TranslationRow } from "../types/TranslationRow";
-import { genderColorHelper, genderHelper } from "../heleprs/genderHelper";
+import { genderColorHelper, genderHelper } from "../helprs/genderHelper";
 import "./CreateTranslationRow.css";
 
 interface CreateTranslationMapResultsProps {
-  translation: TranslationRow;
+  translationRow: TranslationRow;
 }
 
 export default function CreateTranslationRow({
-  translation,
+  translationRow,
 }: CreateTranslationMapResultsProps) {
   return (
-    <tr key={translation.id}>
-      <td>{translation.name}</td>
+    <tr key={translationRow.id}>
       <td>
-        {translation.macrofamily === "Indo-European"
+        {translationRow.name} {translationRow.flag ? translationRow.flag : ""}
+      </td>
+      <td>
+        {translationRow.macrofamily === "Indo-European"
           ? "I.E."
-          : translation.macrofamily}
+          : translationRow.macrofamily}
       </td>
-      <td>{translation.family}</td>
-      <td>{translation.translation}</td>
+      <td>{translationRow.family}</td>
+      <td>{translationRow.translation}</td>
       <td>
-        {translation.translation === translation.romanization
+        {translationRow.translation === translationRow.romanization
           ? null
-          : translation.romanization}
+          : translationRow.romanization}
       </td>
-      <td className={genderColorHelper(translation.gender)}>
-        {genderHelper(translation.macrofamily, translation.name)
-          ? translation.gender
+      <td className={genderColorHelper(translationRow.gender)}>
+        {genderHelper(translationRow.macrofamily, translationRow.name)
+          ? translationRow.gender
           : ""}
       </td>
       <td className="table-etymology">
-        {translation.etymology ? translation.etymology : "N/A"}
+        {translationRow.etymology ? translationRow.etymology : "N/A"}
       </td>
     </tr>
   );
