@@ -23,7 +23,7 @@ export default function LoginForm() {
       },
       body: JSON.stringify({
         user: {
-          name: username,
+          username: username,
           password: password,
         },
       }),
