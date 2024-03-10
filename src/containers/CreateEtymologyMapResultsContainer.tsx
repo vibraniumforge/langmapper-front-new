@@ -13,7 +13,7 @@ export default function CreateGenderMapResultsContainer({
           return (
             <CreateTranslationRow
               key={translation.id}
-              translation={translation}
+              translationRow={translation}
             />
           );
         })
