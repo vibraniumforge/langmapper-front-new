@@ -1,5 +1,5 @@
 import { TranslationRow } from "../types/TranslationRow";
-import { genderColorHelper, genderHelper } from "../helprs/genderHelper";
+import { genderColorHelper, genderHelper } from "../helpers/genderHelper";
 import "./CreateTranslationRow.css";
 
 interface CreateTranslationMapResultsProps {
