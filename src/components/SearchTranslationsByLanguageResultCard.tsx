@@ -1,14 +1,16 @@
 import { TranslationRow } from "../types/TranslationRow";
-import { genderColorHelper, genderHelper } from "../heleprs/genderHelper";
+import { genderColorHelper, genderHelper } from "../helpers/genderHelper";
+import EditAndDeleteButtons from "./EditAndDeleteButtons";
 
 interface SearchTranslationsByLanguageResultProps {
   translation: TranslationRow;
+  handleOnEdit: Function;
 }
 
 export default function SearchTranslationsByLanguageResultCard({
   translation,
+  handleOnEdit,
 }: SearchTranslationsByLanguageResultProps) {
-  console.log(translation);
   return (
     <div className="translation-result-card">
       {/* {loggedIn ? ( */}
@@ -52,6 +54,13 @@ export default function SearchTranslationsByLanguageResultCard({
         <span>{translation.etymology}</span>
         {/* {etymologyFormatHelper(translation.etymology)} */}
       </p>
+      <>
+        <EditAndDeleteButtons
+          handleOnEdit={handleOnEdit}
+          // onHandleDelete={onHandleDelete}
+          translation={translation}
+        />
+      </>
       {/* <p>
         <strong>Link: </strong>
         <WiktionaryLink link={translation.link} />
