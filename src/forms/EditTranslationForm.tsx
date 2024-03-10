@@ -27,7 +27,7 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
     romanization: translation?.romanization ?? "",
     translation: translation?.translation ?? "",
     etymology: translation?.etymology ?? "",
-    language_name: translation?.language_name ?? "",
+    language_name: translation?.name ?? "",
     word_name: translation?.word_name ?? "",
   });
   const [languages, setLanguages] = useState<Language[]>([]);
@@ -168,7 +168,7 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
       ? words.map((word: Word) => {
           return (
             <option key={word.id} value={word.id}>
-              {word.word_name}
+              {word.word_name + " " + word?.emoji}
             </option>
           );
         })
@@ -179,7 +179,7 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
       ? languages.map((language: Language) => {
           return (
             <option key={language.id} value={language.id}>
-              {language.name}
+              {language.name} {language?.flag ? language?.flag : ""}
             </option>
           );
         })
