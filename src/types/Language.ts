@@ -11,5 +11,6 @@ export interface Language {
   area3: string;
   notes: string;
   has_gender: boolean;
+  flag?: string;
   alive: boolean;
 }
