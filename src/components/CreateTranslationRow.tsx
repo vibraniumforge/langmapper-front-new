@@ -1,6 +1,7 @@
 import { TranslationRow } from "../types/TranslationRow";
 import { genderColorHelper, genderHelper } from "../helpers/genderHelper";
 import "./CreateTranslationRow.css";
+import WiktionaryLink from "./WiktionaryLink";
 
 interface CreateTranslationMapResultsProps {
   translationRow: TranslationRow;
@@ -32,6 +33,7 @@ export default function CreateTranslationRow({
           : ""}
       </td>
       <td className="table-etymology">
+        <WiktionaryLink link={translationRow.link} />
         {translationRow.etymology ? translationRow.etymology : "N/A"}
       </td>
     </tr>
