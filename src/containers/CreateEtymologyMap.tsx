@@ -10,7 +10,7 @@ export default function CreateEtymologyMap() {
   const [imageResults, setImageResults] = useState<string>();
   const [words, setWords] = useState<Word[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
-  const [chosenWord, setChosenWord] = useState<string>("apple");
+  const [chosenWord, setChosenWord] = useState<string>("gold");
   const [chosenArea, setChosenArea] = useState<string>("Europe");
   const [wordDefinition, setWordDefinition] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -20,12 +20,12 @@ export default function CreateEtymologyMap() {
    */
   useEffect(() => {
     Promise.all([
-      fetch(`${import.meta.env.VITE_URL}/words/get/word_names`),
+      fetch(`${import.meta.env.VITE_URL}/words`),
       fetch(`${import.meta.env.VITE_URL}/languages/get/area_names`),
     ])
       .then(([res1, res2]) => {
         Promise.all([res1.json(), res2.json()]).then(([res1, res2]) => {
-          setWords(res1.data), setAreas(res2.data), setIsLoading(false);
+          setWords(res1), setAreas(res2.data), setIsLoading(false);
         });
       })
       .catch((err) => console.log(err));
@@ -76,10 +76,26 @@ export default function CreateEtymologyMap() {
       .catch((err) => console.log(err));
   };
 
+  function getWordEmoji(): string {
+    let wordToGetEmoji: Word;
+    if (chosenWord) {
+      wordToGetEmoji = words.find(
+        (word: Word): boolean => word.word_name === chosenWord
+      )!;
+      return wordToGetEmoji?.emoji ? wordToGetEmoji.emoji : "";
+    } else {
+      return "";
+    }
+  }
+
   const allWords =
-    words.length > 0
+    words && words.length > 0 && !isLoading
       ? words.map((word: Word) => {
-          return <option key={word.id}>{word.word_name}</option>;
+          return (
+            <option key={word.id} value={word.word_name}>
+              {`${word.word_name} ${word.emoji}`}
+            </option>
+          );
         })
       : null;
 
@@ -101,7 +117,6 @@ export default function CreateEtymologyMap() {
             onChange={(e) => handleOnChangeArea(e)}
           >
             <option value="">Select One Area</option>
-            <option value="Low German">Low German</option>
             {allAreas}
           </select>
           <select
@@ -114,6 +129,7 @@ export default function CreateEtymologyMap() {
             {allWords}
           </select>
           <input
+            id="submit-button"
             type="submit"
             value="Search"
             className={chosenWord && chosenArea ? "submit-btn" : "disabled"}
@@ -121,11 +137,14 @@ export default function CreateEtymologyMap() {
           />
         </form>
       ) : null}
-      <h3>
-        Area: {chosenArea} Word: {chosenWord}{" "}
+      <h2>
+        Area: {chosenArea} Word: {chosenWord} {chosenWord ? getWordEmoji() : ""}
         {wordDefinition ? " - " + wordDefinition : null}
-      </h3>
-      {imageResults && !isLoading && translationResults.length > 0 ? (
+      </h2>
+      {imageResults &&
+      !isLoading &&
+      translationResults &&
+      translationResults.length > 0 ? (
         <>
           <img src={imageResults} alt="europe language map" />
           <CreateEtymologyMapResultsContainer
