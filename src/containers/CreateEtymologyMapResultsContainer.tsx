@@ -1,5 +1,6 @@
 import CreateTranslationRow from "../components/CreateTranslationRow";
 import { TranslationRow } from "../types/TranslationRow";
+import "../styles/table.css";
 
 interface CreateTranslationMapResultsProps {
   translationResults: TranslationRow[];
