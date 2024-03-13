@@ -7,6 +7,15 @@
   cursor: pointer;
 }
 
+.submit-btn-disabled {
+  margin: 10px;
+  font-size: 24px;
+  border: 2px solid black;
+  color: black;
+  background-color: gray;
+  cursor: pointer;
+}
+
 .clear-btn {
   margin: 10px;
   font-size: 24px;
