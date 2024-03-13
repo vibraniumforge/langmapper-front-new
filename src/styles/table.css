@@ -1,0 +1,76 @@
+#table-title {
+  padding: 5px;
+  text-align: center;
+  margin-top: 30px;
+  width: auto;
+}
+
+#table-title > thead tr {
+  padding: 15px;
+}
+
+#table-title > td {
+  /* padding-bottom: 15px; */
+  text-align: center;
+}
+
+table {
+  width: 80%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  color: black;
+  background-color: white;
+  font-size: 20px;
+  /* font-weight: bold; */
+  padding: 30px;
+  border-collapse: collapse;
+}
+
+thead {
+  padding-bottom: 15px;
+  /* color: black; */
+  /* background-color: lightgray; */
+  color: #4ecdc4;
+  background-color: #1a535c;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+th {
+  padding: 0px 10px 0px 10px;
+}
+
+td {
+  /* padding-bottom: 15px; */
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  font-size: 1.2em;
+  color: #1a535c;
+}
+
+tbody tr:nth-child(even) {
+  /* background-color: whitesmoke; */
+  background-color: #c7d8d9;
+  color: black;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+  /* background-color: whitesmoke; */
+  background-color: #dee7e8;
+  color: black;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
