@@ -293,7 +293,18 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
               />
             </div>
           </div>
-          <input type="submit" value="Update" className="submit-btn" />
+          <input
+            type="submit"
+            value="Update"
+            className={
+              chosenLanguageId && chosenWordId && formState.etymology
+                ? "submit-btn"
+                : "submit-btn-disabled"
+            }
+            disabled={
+              !chosenLanguageId || !chosenWordId || !formState.etymology
+            }
+          />
 
           <button
             type="button"
