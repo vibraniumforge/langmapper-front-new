@@ -13,7 +13,7 @@ export default function CreateTranslationMapResultsContainer({
           return (
             <CreateTranslationRow
               key={translation.id}
-              translation={translation}
+              translationRow={translation}
             />
           );
         })
