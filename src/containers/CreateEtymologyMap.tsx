@@ -11,7 +11,7 @@ export default function CreateEtymologyMap() {
   const [words, setWords] = useState<Word[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
   const [chosenWord, setChosenWord] = useState<string>("gold");
-  const [chosenArea, setChosenArea] = useState<string>("Europe");
+  const [chosenArea, setChosenArea] = useState<string>("Europe small");
   const [wordDefinition, setWordDefinition] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -117,6 +117,7 @@ export default function CreateEtymologyMap() {
             onChange={(e) => handleOnChangeArea(e)}
           >
             <option value="">Select One Area</option>
+            <option value="Europe small">Europe small</option>
             {allAreas}
           </select>
           <select
@@ -137,16 +138,15 @@ export default function CreateEtymologyMap() {
           />
         </form>
       ) : null}
+      <h2>Area: {chosenArea} </h2>{" "}
       <h2>
-        Area: {chosenArea} Word: {chosenWord} {chosenWord ? getWordEmoji() : ""}
-        {wordDefinition ? " - " + wordDefinition : null}
+        {" "}
+        Word: {chosenWord} {chosenWord ? getWordEmoji() : ""}{" "}
       </h2>
-      {imageResults &&
-      !isLoading &&
-      translationResults &&
-      translationResults.length > 0 ? (
+      <h4>{wordDefinition ? " - " + wordDefinition : null} </h4>
+      {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
-          <img src={imageResults} alt="europe language map" />
+          <img src={imageResults} alt={`${chosenArea} language map`} />
           <CreateEtymologyMapResultsContainer
             translationResults={translationResults}
             // onHandleEdit={}
