@@ -20,12 +20,12 @@ export default function CreateTranslationsMap() {
    */
   useEffect(() => {
     Promise.all([
-      fetch(`${import.meta.env.VITE_URL}/words/get/word_names`),
+      fetch(`${import.meta.env.VITE_URL}/words`),
       fetch(`${import.meta.env.VITE_URL}/languages/get/area_names`),
     ])
       .then(([res1, res2]) => {
         Promise.all([res1.json(), res2.json()]).then(([res1, res2]) => {
-          setWords(res1.data), setAreas(res2.data), setIsLoading(false);
+          setWords(res1), setAreas(res2.data), setIsLoading(false);
         });
       })
       .catch((err) => console.log(err));
@@ -77,14 +77,14 @@ export default function CreateTranslationsMap() {
   };
 
   const allWords =
-    words.length > 0
+    !isLoading && words.length > 0
       ? words.map((word: Word) => {
           return <option key={word.id}>{word.word_name}</option>;
         })
       : null;
 
   const allAreas =
-    areas.length > 0
+    !isLoading && areas.length > 0
       ? areas.map((area: string) => {
           return <option key={area}>{area}</option>;
         })
