@@ -5,7 +5,6 @@ export default function LoginForm() {
   const [password, setPassword] = useState<string>("");
 
   const handleOnChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
     setUsername(e.currentTarget.value);
   };
 
