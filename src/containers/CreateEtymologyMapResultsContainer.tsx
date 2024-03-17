@@ -5,7 +5,7 @@ import "../styles/table.css";
 interface CreateTranslationMapResultsProps {
   translationResults: TranslationRow[];
 }
-export default function CreateGenderMapResultsContainer({
+export default function CreateEtymologyMapResultsContainer({
   translationResults,
 }: CreateTranslationMapResultsProps) {
   const translations =
