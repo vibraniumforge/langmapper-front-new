@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { TranslationRow } from "../types/TranslationRow";
 import { Word } from "../types/Word";
 import { Language } from "../types/Language";
+import { genderHelper } from "../helpers/genderHelper";
 import "../styles/edit-translation-form.css";
 
 interface FormStateProps {
@@ -12,6 +13,7 @@ interface FormStateProps {
   translation: string;
   etymology: string;
   language_name: string;
+  macrofamily: string;
   word_name: string;
 }
 
@@ -28,6 +30,7 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
     translation: translation?.translation ?? "",
     etymology: translation?.etymology ?? "",
     language_name: translation?.name ?? "",
+    macrofamily: translation?.macrofamily ?? "",
     word_name: translation?.word_name ?? "",
   });
   const [languages, setLanguages] = useState<Language[]>([]);
@@ -81,14 +84,15 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
   };
 
   const handleOnChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ): void => {
-    setFormState((prevState: any) => {
+    setFormState((prevState: FormStateProps | any) => {
+      const value: string = e.target.value;
+      const name: string = e.target.name;
       let helper = { ...prevState };
-      helper[e.target.name] = e.target.value;
+      helper[name as keyof FormStateProps] = value;
       return helper;
     });
   };
@@ -102,6 +106,7 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
       translation: "",
       etymology: "",
       language_name: "",
+      macrofamily: "",
       word_name: "",
     });
   };
@@ -134,6 +139,7 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
           translation: res?.data[0]?.translation ?? "",
           etymology: res?.data[0]?.etymology ?? "",
           language_name: res?.data[0]?.name ?? "",
+          macrofamily: res?.data[0]?.name ?? "",
           word_name: res?.data[0]?.word_name ?? "",
         });
       })
@@ -155,6 +161,8 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
           etymology: formState?.etymology,
           link: formState?.link,
           gender: formState?.gender,
+          translation: formState.translation,
+          romanization: formState.romanization,
         },
       }),
     })
@@ -258,7 +266,10 @@ export default function EditTranslationForm({ translation }: TranslationProps) {
                   name="gender"
                   placeholder="Gender"
                   value={formState?.gender}
-                  disabled={formState?.gender ? false : true}
+                  disabled={genderHelper(
+                    formState.macrofamily,
+                    formState.language_name
+                  )}
                   onChange={(e) => handleOnChange(e)}
                   className="input-text gender-input"
                 />
