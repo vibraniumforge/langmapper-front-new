@@ -11,7 +11,7 @@ export default function CreateTranslationRow({
   translationRow,
 }: CreateTranslationMapResultsProps) {
   return (
-    <tr key={translationRow.id}>
+    <tr>
       <td>
         {translationRow.name} {translationRow.flag ? translationRow.flag : ""}
       </td>
