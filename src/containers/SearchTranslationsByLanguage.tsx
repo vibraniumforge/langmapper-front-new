@@ -4,46 +4,83 @@ import { Language } from "../types/Language";
 import SearchTranslationsByLanguageResultCard from "../components/SearchTranslationsByLanguageResultCard";
 
 export default function SearchTranslationsByLanguage() {
-  const [translations, setTranslations] = useState<TranslationRow[]>();
+  const [translations, setTranslations] = useState<TranslationRow[]>([]);
   const [languages, setLanguages] = useState<Language[]>([]);
-  const [language, setLanguage] = useState<string>("");
+  const [chosenLanguage, setChosenLanguage] = useState<string>("");
+  const [chosenTranslation, setChosenTranslation] =
+    useState<TranslationRow | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_URL}/languages`)
       .then((res) => res.json())
-      .then((res) => setLanguages(res))
+      .then((res) => {
+        setLanguages(res), setIsLoading(false);
+      })
       .catch((err) => console.log(err));
   }, []);
 
   function handleOnChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setLanguage(e.target.value);
+    setChosenLanguage(e.target.value);
   }
 
   function handleOnSubmit(e: React.MouseEvent<HTMLButtonElement>) {
-    console.log("onHandleSubmit fires");
     e.preventDefault();
     fetch(
-      `${import.meta.env.VITE_URL}/translations/search/language/${language}`
+      `${
+        import.meta.env.VITE_URL
+      }/translations/search/language/${chosenLanguage}`
     )
       .then((res) => res.json())
       .then((res) => setTranslations(res.data))
       .catch((err) => console.log(err));
   }
 
+  function handleOnEdit(
+    e: React.MouseEvent<HTMLButtonElement>,
+    translation: TranslationRow
+  ) {
+    e.preventDefault();
+    const token = () => localStorage.getItem("jwt");
+
+    const headers = () => {
+      return {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token()}`,
+      };
+    };
+
+    const params = {
+      method: "GET",
+      headers: headers(),
+    };
+    console.log(chosenTranslation);
+    fetch(`${import.meta.env.VITE_URL}/translations/${translation.id}`, params)
+      .then((res) => res.json())
+      .then((res) => setChosenTranslation(res))
+      .catch((err) => console.log(err));
+  }
+
   const languagesOptions =
     languages.length > 0
-      ? languages.map((language) => {
-          return <option key={language.id}>{language.name}</option>;
+      ? languages.map((language: Language) => {
+          return (
+            <option key={language.id} value={language.id}>
+              {language.name} {language?.flag ? language?.flag : ""}
+            </option>
+          );
         })
       : null;
 
   const translationCards =
-    translations?.length! > 0 && translations
+    translations?.length! > 0 && !isLoading
       ? translations?.map((translation: TranslationRow) => {
           return (
             <SearchTranslationsByLanguageResultCard
               translation={translation}
               key={translation.id}
+              handleOnEdit={handleOnEdit}
             />
           );
         })
@@ -51,7 +88,6 @@ export default function SearchTranslationsByLanguage() {
 
   return (
     <>
-      {/* <LanguageNameAutofill languages={languages} /> */}
       <select onChange={(e) => handleOnChange(e)}>
         <option>Select a Language</option>
         {languagesOptions}
