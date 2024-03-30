@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Home.css";
+import "../styles/Home.css";
 
 export default function Home() {
   const [languagesCount, setLanguagesCount] = useState<number>(0);
