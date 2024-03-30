@@ -15,8 +15,9 @@ export default function ViewAllWordsResultCard({
       </p>
       <p>
         <strong>Name: </strong>
-        {word.word_name}
+        {word.word_name} {word.emoji ? " - " + word.emoji : ""}
       </p>
+
       <p>
         <strong>Definition: </strong>
         {word.definition}
