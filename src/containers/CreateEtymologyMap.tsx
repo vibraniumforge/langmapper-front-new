@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { TranslationRow } from "../types/TranslationRow";
 import { Word } from "../types/Word";
 import CreateEtymologyMapResultsContainer from "./CreateEtymologyMapResultsContainer";
+import "../styles/create-etymology-map.css";
 
 export default function CreateEtymologyMap() {
   const [translationResults, setTranslationResults] = useState<
@@ -10,9 +11,8 @@ export default function CreateEtymologyMap() {
   const [imageResults, setImageResults] = useState<string>();
   const [words, setWords] = useState<Word[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
-  const [chosenWord, setChosenWord] = useState<string>("gold");
+  const [chosenWord, setChosenWord] = useState<Word>();
   const [chosenArea, setChosenArea] = useState<string>("Europe small");
-  const [wordDefinition, setWordDefinition] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   /**
@@ -32,8 +32,10 @@ export default function CreateEtymologyMap() {
   }, []);
 
   const handleOnChangeWord = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setChosenWord(e.target.value);
-    setWordDefinition("");
+    const newWord = words.filter((word: Word): boolean => {
+      return word.word_name === e.target.value;
+    });
+    setChosenWord(newWord[0]);
   };
 
   const handleOnChangeArea = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -51,27 +53,23 @@ export default function CreateEtymologyMap() {
       fetch(
         `${
           import.meta.env.VITE_URL
-        }/translations/search/all_etymologies_by_area_img/${chosenArea}/${chosenWord}`
+        }/translations/search/all_etymologies_by_area_img/${chosenArea}/${
+          chosenWord?.word_name
+        }`
       ),
       fetch(
-        `${import.meta.env.VITE_URL}/words/search/definition/${chosenWord}`
-      ),
-      fetch(
-        `${
-          import.meta.env.VITE_URL
-        }/translations/search/area/${chosenArea}/${chosenWord}`
+        `${import.meta.env.VITE_URL}/translations/search/area/${chosenArea}/${
+          chosenWord?.word_name
+        }`
       ),
     ])
-      .then(([res1, res2, res3]) => {
-        Promise.all([res1.blob(), res2.json(), res3.json()]).then(
-          ([images, res2, res3]) => {
-            let outside = URL.createObjectURL(images);
-            setImageResults(outside);
-            setWordDefinition(res2.data);
-            setTranslationResults(res3.data);
-            setIsLoading(false);
-          }
-        );
+      .then(([res1, res2]) => {
+        Promise.all([res1.blob(), res2.json()]).then(([images, res2]) => {
+          let outside = URL.createObjectURL(images);
+          setImageResults(outside);
+          setTranslationResults(res2.data);
+          setIsLoading(false);
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -80,11 +78,21 @@ export default function CreateEtymologyMap() {
     let wordToGetEmoji: Word;
     if (chosenWord) {
       wordToGetEmoji = words.find(
-        (word: Word): boolean => word.word_name === chosenWord
+        (word: Word): boolean => word.word_name === chosenWord.word_name
       )!;
       return wordToGetEmoji?.emoji ? wordToGetEmoji.emoji : "";
     } else {
       return "";
+    }
+  }
+
+  function randomWord(e: React.MouseEvent<HTMLInputElement, MouseEvent>): void {
+    console.log(e);
+    const wordsLength: number = words.length;
+    if (wordsLength > 0) {
+      const randomNumber: number = Math.floor(Math.random() * wordsLength);
+
+      setChosenWord(words[randomNumber]);
     }
   }
 
@@ -109,7 +117,7 @@ export default function CreateEtymologyMap() {
   return (
     <>
       {!isLoading ? (
-        <form onSubmit={(e) => handleOnSubmit(e)}>
+        <form className="centered" onSubmit={(e) => handleOnSubmit(e)}>
           <select
             id="selectArea"
             name="selectedArea"
@@ -123,7 +131,7 @@ export default function CreateEtymologyMap() {
           <select
             id="selectWord"
             name="selectedWord"
-            value={chosenWord}
+            value={chosenWord?.word_name}
             onChange={(e) => handleOnChangeWord(e)}
           >
             <option value="">Select One Word</option>
@@ -134,23 +142,49 @@ export default function CreateEtymologyMap() {
             type="submit"
             value="Search"
             className={chosenWord && chosenArea ? "submit-btn" : "disabled"}
-            disabled={!chosenWord && !chosenArea}
+            disabled={!chosenWord || !chosenArea}
+          />
+          <input
+            id="random-button"
+            type="button"
+            value="Random"
+            onClick={(e) => randomWord(e)}
           />
         </form>
       ) : null}
-      <h2>Area: {chosenArea} </h2>{" "}
-      <h2>
-        {" "}
-        Word: {chosenWord} {chosenWord ? getWordEmoji() : ""}{" "}
-      </h2>
-      <h4>{wordDefinition ? " - " + wordDefinition : null} </h4>
+      <div className="word-desc">
+        {/* <div>
+          <h2 className={chosenWord ? "visible" : "hidden"}>
+            Area: {chosenArea} Word: {chosenWord?.word_name}{" "}
+          </h2>
+        </div> */}
+        <div>
+          <h1
+            className={`emoji-container {chosenWord?.emoji?.length! > 0 ? "visible" : "hidden"}`}
+          >
+            {" "}
+            {chosenWord?.word_name ? getWordEmoji() : ""}{" "}
+          </h1>
+        </div>
+        <div>
+          <h4 className={chosenWord ? "visible" : "hidden"}>
+            Definition:{" "}
+            {chosenWord?.definition ? " - " + chosenWord?.definition : null}{" "}
+          </h4>
+        </div>
+      </div>
       {imageResults && !isLoading && translationResults.length > 0 ? (
         <>
-          <img src={imageResults} alt={`${chosenArea} language map`} />
-          <CreateEtymologyMapResultsContainer
-            translationResults={translationResults}
-            // onHandleEdit={}
-          />
+          <div className="centered">
+            <img src={imageResults} alt={`${chosenArea} language map`} />
+          </div>
+          <p className="centered">{translationResults.length} Results:</p>
+          <div>
+            <CreateEtymologyMapResultsContainer
+              translationResults={translationResults}
+              // onHandleEdit={}
+            />
+          </div>
         </>
       ) : null}
     </>
